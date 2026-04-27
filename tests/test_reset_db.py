@@ -9,7 +9,7 @@ from selenium.webdriver.chrome.service import Service
 
 @pytest.fixture
 def driver():
-    print("\n🚀 Запуск браузера...")
+    print("\nЗапуск браузера...")
     
     options = Options()
     options.binary_location = r"C:\Users\Семён\AppData\Local\Yandex\YandexBrowser\Application\browser.exe"
@@ -33,63 +33,62 @@ def base_url():
 def test_reset_database(driver, base_url):
     """Тест: авторизация + сброс базы данных"""
     
-    print("\n🚀 Запуск теста...")
+    print("\nЗапуск теста...")
     
-    # ----- Шаг 1: Открываем сайт и авторизуемся -----
-    print("🔑 Открываем страницу авторизации...")
+    #Шаг 1
+    print("Открываем страницу авторизации...")
     driver.get(base_url)
     time.sleep(2)
-    
-    # Вводим телефон
+   
     phone_input = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, "input[type='tel'], input[name*='phone'], input[placeholder*='телефон'], input[placeholder*='Телефон']"))
     )
     phone_input.clear()
     phone_input.send_keys("9008001234")
-    print("📱 Телефон введён")
+    print(" Телефон введён")
     
-    # Вводим пароль
+    
     password_input = driver.find_element(By.CSS_SELECTOR, "input[type='password']")
     password_input.clear()
     password_input.send_keys("uxENeov5GuvzkhxH")
-    print("🔒 Пароль введён")
+    print("Пароль введён")
     
-    # Нажимаем кнопку входа
+    
     login_button = driver.find_element(By.XPATH, "//button[contains(text(), 'Войти')]")
     login_button.click()
-    print("🔄 Нажата кнопка 'Войти'")
+    print("Нажата кнопка 'Войти'")
     
-    # Ждём успешного входа
+   
     time.sleep(3)
-    print("✅ Авторизация выполнена")
+    print("Авторизация выполнена")
     
-    # ----- Шаг 2: Переходим на страницу сброса БД -----
-    print("📂 Переход на страницу /tests...")
+    # Шаг2 
+    print("Переход на страницу /tests...")
     driver.get(base_url + "/tests")
     time.sleep(2)
     
-    # ----- Шаг 3: Сбрасываем БД -----
-    # Ищем любую кнопку на странице (предполагаем, что это кнопка сброса)
+    # Шаг 3
+   
     buttons = driver.find_elements(By.TAG_NAME, "button")
     
     if buttons:
-        print(f"🔘 Найдено кнопок: {len(buttons)}")
+        print(f" Найдено кнопок: {len(buttons)}")
         for i, btn in enumerate(buttons):
             print(f"  Кнопка {i+1}: текст='{btn.text}'")
         
-        # Нажимаем первую кнопку (скорее всего это сброс)
-        buttons[0].click()
-        print("🔄 Нажата кнопка сброса")
         
-        # Подтверждаем alert (если он есть)
+        buttons[0].click()
+        print("Нажата кнопка сброса")
+        
+        
         try:
             alert = WebDriverWait(driver, 3).until(EC.alert_is_present())
             alert.accept()
-            print("✅ Alert подтверждён")
+            print("Alert подтверждён")
         except:
-            print("⚠️ Alert не появился")
+            print("Alert не появился")
     else:
-        print("❌ Кнопки не найдены!")
+        print(" Кнопки не найдены!")
     
     time.sleep(2)
-    print("✅ Тест завершён!")
+    print(" Тест завершён!")

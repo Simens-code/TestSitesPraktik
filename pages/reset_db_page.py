@@ -5,16 +5,16 @@ from pages.base_page import BasePage
 class ResetDBPage(BasePage):
     """Страница сброса базы данных (/tests)"""
     
-    # Локаторы элементов на странице
+    
     RESET_BUTTON = (By.CSS_SELECTOR, "button[type='submit']")
     ALERT_SUCCESS = (By.CSS_SELECTOR, ".alert-success")
     
     def reset_database(self):
         """Выполнить сброс базы данных"""
-        # Нажимаем кнопку сброса
+        
         self.click(self.RESET_BUTTON)
         
-        # Ожидаем появления alert и подтверждаем
+        
         alert = self.wait.until(EC.alert_is_present())
         alert.accept()
         

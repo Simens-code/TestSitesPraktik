@@ -1,22 +1,94 @@
- 🚚 Автотесты для cargo-test.mwire.ru
+# 🚚 Автотесты для cargo-test.mwire.ru
 
-Проект с автоматическими браузерными тестами для веб-приложения **cargo-test.mwire.ru**.
-Тесты написаны с использованием **Selenium WebDriver** и **pytest**, ориентированы на **мобильную версию** сайта.
+Проект с автоматическими браузерными тестами для cargo-test.mwire.ru  
+Тесты написаны для мобильной версии (iPhone 12/13) с использованием Selenium и pytest.
+
+---
+
+ Быстрый старт
+
+1. Установите Python 3.9 или новее
+
+Скачайте с официального сайта: https://www.python.org/downloads/
+
+При установке обязательно поставьте галочку:
+-  `Add Python to PATH`
+
+Проверьте установку в терминале:
+```bash
+python --version
+
+2. Скачайте Яндекс Браузер
+Если у вас его нет: https://browser.yandex.ru/
+
+3. Клонируйте репозиторий
+
+git clone https://github.com/Simens-code/TestSitesPraktik.git
+cd TestSitesPraktik
+
+4. Скачайте YandexDriver
+Ссылка для скачивания:
+👉 https://github.com/yandex/YandexDriver/releases
+
+Что нужно сделать:
+
+Найдите последнюю версию (например, 26.3.1-stable)
+
+В разделе Assets скачайте файл для Windows:
+yandexdriver-версия-win32.zip
+
+Распакуйте архив
+
+Переименуйте файл yandexdriver → yandexdriver.exe
+
+В папке проекта создайте папку drivers и положите туда yandexdriver.exe
+mkdir drivers
+
+5. Создайте виртуальное окружение
+
+python -m venv venv
+
+Активация:
+
+Windows:
+venv\Scripts\activate
 
 
-📋 О проекте
+Mac / Linux:
+source venv/bin/activate
+После активации в начале строки терминала появится (venv).
 
-Этот проект создан в рамках практики по автоматизации тестирования веб-приложений.  
-Основная цель — научиться писать стабильные и поддерживаемые автотесты для UI.
+6. Установите библиотеки
 
-Тестируемый сайт: [cargo-test.mwire.ru](https://cargo-test.mwire.ru/tests)
+pip install -r requirements.txt
+Если файла requirements.txt нет, создайте его:
 
-🛠 Технологии
 
-| Технология | Версия | Назначение |
-|------------|--------|-------------|
-| **Python** | 3.9+ | Язык программирования |
-| **Selenium** | 4.15.0 | Управление браузером |
-| **pytest** | 7.4.3 | Запуск тестов |
-| **webdriver-manager** | 4.0.1 | Автоматическое скачивание драйверов |
-| **pytest-html** | 4.1.1 | Генерация HTML-отчётов |
+echo selenium==4.15.0 > requirements.txt
+echo pytest==7.4.3 >> requirements.txt
+echo webdriver-manager==4.0.1 >> requirements.txt
+echo pytest-html==4.1.1 >> requirements.txt
+echo python-dotenv==1.0.0 >> requirements.txt
+И установите:
+
+
+pip install -r requirements.txt
+
+7. Настройте переменные окружения
+Создайте файл .env:
+
+
+echo BASE_URL=https://cargo-test.mwire.ru > .env
+echo DEFAULT_TIMEOUT=10 >> .env
+echo MOBILE_EMULATION=true >> .env
+echo YANDEX_BROWSER_PATH=C:\Users\%USERNAME%\AppData\Local\Yandex\YandexBrowser\Application\browser.exe >> .env
+
+8. Запустите тест
+
+python -m pytest tests/test_reset_db.py -v -s
+
+Данные для авторизации
+Если тест требует авторизации, добавьте в файл .env:
+
+echo TEST_PHONE=9008001234 >> .env
+echo TEST_PASSWORD=uxENeov5GuvzkhxH >> .env

@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.service import Service
 
 def test_open_site():
     """Простой тест без фикстур"""
-    print("\n🚀 Запуск браузера...")
+    print("\n Запуск браузера...")
     
     options = Options()
     options.binary_location = r"C:\Users\Семён\AppData\Local\Yandex\YandexBrowser\Application\browser.exe"
@@ -19,9 +19,9 @@ def test_open_site():
     driver = webdriver.Chrome(service=service, options=options)
     driver.implicitly_wait(5)
     
-    print("📂 Открываем сайт...")
+    print("Открываем сайт...")
     driver.get("https://cargo-test.mwire.ru")
     time.sleep(3)
     
-    print("✅ Сайт открыт!")
+    print("Сайт открыт!")
     driver.quit()
