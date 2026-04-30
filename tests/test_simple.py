@@ -1,14 +1,20 @@
+import pytest
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from pages.login_page import LoginPage
+
+@pytest.fixture
+def base_url():
+    return "https://cargo-test.mwire.ru"
 
 def test_open_site():
     """Простой тест без фикстур"""
     print("\n Запуск браузера...")
     
     options = Options()
-    options.binary_location = r"C:\Users\Семён\AppData\Local\Yandex\YandexBrowser\Application\browser.exe"
+    options.binary_location = r"C:\Users\Студент\AppData\Local\Yandex\YandexBrowser\Application\browser.exe"
     
     options.add_experimental_option("mobileEmulation", {
         "deviceMetrics": { "width": 390, "height": 844, "pixelRatio": 3 },
@@ -23,5 +29,9 @@ def test_open_site():
     driver.get("https://cargo-test.mwire.ru")
     time.sleep(3)
     
-    print("Сайт открыт!")
+    login_page = LoginPage(driver, base_url)
+    login_page.fill_phone("9008001234")
+    login_page.fill_password("uxENeov5GuvzkhxH")
+    login_page.submit()
+
     driver.quit()
