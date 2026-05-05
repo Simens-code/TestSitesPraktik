@@ -1,13 +1,13 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from pages.base_page import BasePage
+from pages.base_page import BasePage          # ← оставить
 from selenium.webdriver.support.ui import WebDriverWait
 import time
 
 class LoginPage(BasePage):
 
     def open(self):
-        self.driver.get(self.base_url + "/tests")
+        self.driver.get(self.base_url)
         time.sleep(2)
 
     def fill_phone(self, phone: str):
